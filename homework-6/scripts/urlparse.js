@@ -1,42 +1,24 @@
 "use strict";
 
-let url = location.search; // "file:///path/index.html?firstName=Иван&lastName=Иванов&email=example@mail.com&gender=male";
-let startPosition;
-let nextPosition;
-let parameter;
+let search = new URLSearchParams(location.search);
 
-startPosition = url.indexOf("firstName");
-if (startPosition !== -1) {
-    nextPosition = url.indexOf("&", startPosition);
-
-    nextPosition !== -1 ? parameter = url.substring(startPosition + "firstName".length + 1, nextPosition) :
-        parameter = url.substring(startPosition + "firstName".length + 1);
-
-    if (parameter.length !== 0) {
-        document.getElementById("first-name").value = parameter;
-    }
+if (search.has("firstName")) {
+    document.getElementById("first-name").value = search.get("firstName");
 }
 
-startPosition = url.indexOf("lastName");
-if (startPosition !== -1) {
-    nextPosition = url.indexOf("&", startPosition);
-
-    nextPosition !== -1 ? parameter = url.substring(startPosition + "lastName".length + 1, nextPosition) :
-        parameter = url.substring(startPosition + "lastName".length + 1);
-
-    if (parameter.length !== 0) {
-        document.getElementById("last-name").value = parameter;
-    }
+if (search.has("lastName")) {
+    document.getElementById("last-name").value = search.get("lastName");
 }
 
-startPosition = url.indexOf("email");
-if (startPosition !== -1) {
-    nextPosition = url.indexOf("&", startPosition);
+if (search.has("email")) {
+    document.getElementById("email").value = search.get("email");
+}
 
-    nextPosition !== -1 ? parameter = url.substring(startPosition + "email".length + 1, nextPosition) :
-        parameter = url.substring(startPosition + "email".length + 1);
-
-    if (parameter.length !== 0) {
-        document.getElementById("email").value = parameter;
+if (search.has("gender")) {
+    if (search.get("gender") === "male") {
+        document.getElementById("gender-male").checked = true;
+    }
+    if (search.get("gender") === "female") {
+        document.getElementById("gender-female").checked = true;
     }
 }
